@@ -1,0 +1,87 @@
+﻿@model UserOrderDetailViewModel
+@{
+    ViewData["Title"] = "Order Detail";
+}
+<div class="esh-orders-detail">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="esh-orders-detail-title">User Name</td>
+                    <td class="esh-orders-detail-item">@Model.Name</td>
+                </tr>
+                <tr>
+                    <td class="esh-orders-detail-title">Order number</td>
+                    <td class="esh-orders-detail-item">@Model.OrderNumber</td>
+                </tr>
+                <tr>
+                    <td class="esh-orders-detail-title">Date</td>
+                    <td class="esh-orders-detail-item">@Model.OrderDate</td>
+                </tr>
+                <tr>
+                    <td class="esh-orders-detail-title">Total</td>
+                    <td class="esh-orders-detail-item">$@Model.Total.ToString("N2")</td>
+                </tr>
+                <tr>
+                    <td class="esh-orders-detail-title">Status</td>
+                    <td class="esh-orders-detail-item">@Model.StatusName</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>Shipping Address</h2>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>@Model.ShippingAddress?.Street</td>
+                </tr>
+                <tr>
+                    <td>@Model.ShippingAddress?.City</td>
+                </tr>
+                <tr>
+                    <td>@Model.ShippingAddress?.Country</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>ORDER DETAILS</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="esh-orders-detail-title">Product Image</th>
+                    <th class="esh-orders-detail-title">Product Name</th>
+                    <th class="esh-orders-detail-title">Unit Price</th>
+                    <th class="esh-orders-detail-title">Units</th>
+                    <th class="esh-orders-detail-title">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td><img src="@item.PictureUrl" alt="@item.ProductName" class="esh-orders-detail-image" /></td>
+                        <td>@item.ProductName</td>
+                        <td>$@item.UnitPrice.ToString("N2")</td>
+                        <td>@item.Units</td>
+                        <td>$@Math.Round(item.Units * item.UnitPrice, 2).ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        <table class="table">
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="esh-orders-detail-title">TOTAL</td>
+                    <td class="esh-orders-detail-item">$@Model.Total.ToString("N2")</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

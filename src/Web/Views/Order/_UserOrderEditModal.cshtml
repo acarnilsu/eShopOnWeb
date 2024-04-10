@@ -1,0 +1,29 @@
+﻿@model UserOrderViewModel;
+@{
+    int count = (int?)ViewData["count"] ?? 0;
+}
+
+<div class="modal" id="myModal-@count">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Product Status</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myForm" asp-controller="Order" asp-action="ChangeStatusUserOrders" method="post">
+                    <div class="form-group">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <label for="actions">Select Action:</label>
+                        <select class="form-control" id="actions" asp-for="StatusId" asp-items="@(new SelectList(Model.OrderStatuses,"Id","Name"))">
+
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Approve</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
